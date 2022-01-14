@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+        <title>JMJ Mesh Interface</title>
+
+        <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+        <meta name="viewport" content="width=device-width" />
+
+        <link rel="icon" href="img/icon.png">
+
+        <link rel="stylesheet" href="css/main.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    </head>
+    
+    <body>
+        <header class="nav-bar">
+            <h3 id="time">...</h3>
+    
+            <nav>
+                <ul class="nav-links">
+                    <li class="nav-item"><a id="nav-discover" onclick="discoverButtonClick()"><i id="nav-icon" class="fa fa-compass"></i>Discover</a></li>
+                    <li class="nav-item"><a id="nav-network" onclick="networkButtonClick()"><i id="nav-icon" class="fa fa-tachometer"></i>Network</a></li>
+                </ul>
+            </nav>
+    
+            <h3 href="#" class="nav-link">
+              <p id="conn-status">...</p>
+            </h3>
+        </header>
+    
+        <div class="info">
+            <div class="info-panel panel-left">
+                <div id="panel-centered-unprovisioned">
+                    
+                </div>
+    
+                <div id="panel-centered-provisioned">
+                    
+                </div>
+    
+                <div id="panel-centered-scan">
+                    <button class="panel-button" id="scan-button" onclick="scanButtonClick()"><i id="nav-icon" class="fa fa-bluetooth-b"></i>Scan</button>
+                    <p id="scan-text-one">No devices found.</p>
+                    <p id="scan-text-two">Click the button above to start scanning...</p>
+                </div>
+            </div>
+    
+            <div class="info-panel panel-right">
+                <div id="panel-centered-unprovisioned-selected">      
+                    <div id="unprovisioned-selected">
+                        <h1 id="unprovisioned-selected-name">Loading</h1>
+                        <h3 id="unprovisioned-selected-uuid">...</h3>
+                        <h4 id="unprovisioned-selected-date">...</h4>
+                     </div>
+    
+                    <button class="panel-button" id="provision-button"><i id="nav-icon" class="fa fa-plus"></i>Provision</button>
+                    <p id="scan-text-two">Click the button above to start provisioning this node and add it to the network.</p>
+                </div>
+    
+                <div id="panel-centered-unprovisioned-select">
+                    <p>Select a device on the left for more options...</p>
+                </div>
+    
+                <div id="panel-centered-provisioned-selected">
+                    <div id="provisioned-selected">
+                        <h1 id="provisioned-selected-name">Loading</h1>
+                        <h3 id="provisioned-selected-uuid">...</h3>
+                        <h4 id="provisioned-selected-date">...</h4>
+                    </div>
+    
+                    <button class="panel-button" id="configure-button">Configure</button>
+                    <p id="configure-instructions">Click the button above to start configuring this node.</p>
+
+                    <button class="panel-button" id="unprovision-button" style="border-color: #e02e22">Unprovision</button>
+                    <p>Click the button above to start unprovisioning this node and remove it from the network.</p>
+    
+                    <button class="panel-button" id="led-button">...</button>
+                    <p id="led-instructions">...</p>
+                    <img src="img/dongle.png" id="led-img">
+                        <div id="led"></div>
+                    </img>
+                </div>
+    
+                <div id="panel-centered-provisioned-select">
+                    <p>Select a device on the left for more options...</p>
+                </div>
+            </div> 
+        </div>
+
+        <script src="js/scripts.js"></script>
+    </body>
+</html>
