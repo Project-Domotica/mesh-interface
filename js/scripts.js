@@ -8,6 +8,8 @@ var time = document.getElementById("time");
 var today = new Date();
 var currentTime;
 var ledStatus;
+var groupStatus = [true, true, true];
+const groupAddress = ["c000", "c001", "c002"];
 
 // Create fake data for testing: https://www.mockaroo.com/
 const apiURL = "http://raspberrypi.local:8080/api/v2";
@@ -15,6 +17,9 @@ const apiURL = "http://raspberrypi.local:8080/api/v2";
 // Entry point (1 ms delay)
 setTimeout(() => {
     executeTasks();
+    groupButton(0);
+    groupButton(1);
+    groupButton(2);
 }, 1);
 
 const executeTasks = () => {
@@ -224,20 +229,26 @@ const networkButtonClick = () => {
 
  const configureButtonClick = (node) => {
     console.log("Configuring device.");
+    var test = prompt("Enter the group number (between 1 and 3)") - 1;
+    if (test < 1 || test > 3){
+        alert("Value is not correct! Please try again");
+        return;
+    }
+    console.log("Filled group = " + test);
 
     fetch(apiURL + "/db/unconfigured/type?device_key=" + node)
     .then(response => {
         return response.json();
     }).then(data => {  
         if (data.payload.type == "light") {
-            fetch(apiURL + "/conf/light?device_key=" + node)
+            fetch(apiURL + "/conf/light?device_key=" + node + "&group=" + groupAddress[test])
             .then(response => {
                 return response.json();
             }).then(data => {  
                 networkButtonClick();
             });
         } else if (data.payload.type = "switch") {
-            fetch(apiURL + "/conf/switch?device_key=" + node)
+            fetch(apiURL + "/conf/switch?device_key=" + node  + "&group=" + groupAddress[test])
             .then(response => {
                 return response.json();
             }).then(data => {  
@@ -257,6 +268,29 @@ const unprovisionButtonClick = (node) => {
         console.log(data);
         networkButtonClick();
     });
+}
+
+const groupButton = (group) => {
+    if (groupStatus[group] == true){
+        console.log("Group " + groupAddress[group] + " turning off");
+        fetch(apiURL + "/group/off?group=" + groupAddress[group])
+        .then(response => {
+            return response.json();
+        }).then(data => {
+            document.getElementById("group" + (group + 1) + "-button").style.borderColor = "#e02e22";
+            groupStatus[group] = false;
+        });
+    }
+    else {
+        console.log("Group " + groupAddress[group] + " turning on");
+        fetch(apiURL + "/group/on?group=" + groupAddress[group])
+        .then(response => {
+            return response.json();
+        }).then(data => {
+            document.getElementById("group" + (group + 1) + "-button").style.borderColor = "#4CAF50";
+            groupStatus[group] = true;
+        });
+    }
 }
 
 const ledButtonClick = (node) => {
